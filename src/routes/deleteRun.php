@@ -22,7 +22,7 @@ $app->post('/api/TestRail/deleteRun', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/delete_run/{$data['run_id']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/delete_run/{$data['runId']}";
 
     
 

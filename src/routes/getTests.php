@@ -24,7 +24,7 @@ $app->post('/api/TestRail/getTests', function ($request, $response) {
     if(isset($data['status_id'])) { $data['status_id'] = \Models\Params::toString($data['status_id'], ','); }
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_tests/{$data['testId']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_tests/{$data['runId']}";
 
     
 

@@ -24,7 +24,7 @@ $app->post('/api/TestRail/updateMilestone', function ($request, $response) {
     $data['start_on'] = \Models\Params::toFormat($data['start_on'], 'unixtime'); 
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/update_milestone/{$data['milestone_id']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/update_milestone/{$data['milestoneId']}";
 
     
 

@@ -36,7 +36,6 @@ $app->post('/api/TestRail/addResultsForCases', function ($request, $response) {
         $requestParams['json']['results'] = $data['result_json_structure'];
     }
 
-
     try {
         $resp = $client->post($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();

@@ -22,7 +22,7 @@ $app->post('/api/TestRail/deletePlanEntry', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/delete_plan_entry/{$data['planId']}/{$data['entry_id']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/delete_plan_entry/{$data['planId']}/{$data['entryId']}";
 
     
 

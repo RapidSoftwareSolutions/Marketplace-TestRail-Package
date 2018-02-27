@@ -23,7 +23,7 @@ $app->post('/api/TestRail/deleteConfig', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/delete_config/{$data['configGroupId']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/delete_config/{$data['configId']}";
 
     
 

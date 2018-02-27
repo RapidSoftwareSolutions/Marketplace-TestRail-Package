@@ -22,7 +22,7 @@ $app->post('/api/TestRail/getMilestone', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_milestone/{$data['milestone_id']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_milestone/{$data['milestoneId']}";
 
     
 

@@ -1080,7 +1080,7 @@
                     "username": "{$data['username']}",
                     "password": "{$data['apiKey']}"
                 },
-                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_config\/{$data['configGroupId']}",
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_config\/{$data['configId']}",
                 "method": "post",
                 "requestParameters": [
                     {
@@ -1139,7 +1139,7 @@
                     "username": "{$data['username']}",
                     "password": "{$data['apiKey']}"
                 },
-                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_milestone\/{$data['milestone_id']}",
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_milestone\/{$data['milestoneId']}",
                 "method": "get"
             },
             "callbacks": [
@@ -1280,7 +1280,7 @@
                     "name": "description",
                     "type": "String",
                     "info": "The description of the milestone.",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "description"
                     }
@@ -1289,7 +1289,7 @@
                     "name": "dueOn",
                     "type": "DatePicker",
                     "info": "The due date of the milestone.",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "due_on",
                         "format": "toFormat:{unixtime}"
@@ -1299,16 +1299,16 @@
                     "name": "parentId",
                     "type": "String",
                     "info": "The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "parent_id"
                     }
                 },
                 {
                     "name": "startOn",
-                    "type": "String",
+                    "type": "DatePicker",
                     "info": "The scheduled start date of the milestone.",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "start_on",
                         "format": "toFormat:{unixtime}"
@@ -1407,14 +1407,14 @@
                     "name": "parentId",
                     "type": "String",
                     "info": "The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "parent_id"
                     }
                 },
                 {
                     "name": "startOn",
-                    "type": "String",
+                    "type": "DatePicker",
                     "info": "The scheduled start date of the milestone.",
                     "required": true,
                     "vendorSchema": {
@@ -1431,7 +1431,7 @@
                     "username": "{$data['username']}",
                     "password": "{$data['apiKey']}"
                 },
-                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_milestone\/{$data['milestone_id']}",
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_milestone\/{$data['milestoneId']}",
                 "method": "post",
                 "requestParameters": [
                     {
@@ -1493,7 +1493,7 @@
                     "username": "{$data['username']}",
                     "password": "{$data['apiKey']}"
                 },
-                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_milestone\/{$data['milestone_id']}",
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_milestone\/{$data['milestoneId']}",
                 "method": "post"
             },
             "callbacks": [
@@ -2091,10 +2091,7 @@
                     "name": "entryId",
                     "type": "Number",
                     "info": "The ID of the test plan entry (note: not the test run ID)",
-                    "required": true,
-                    "vendorSchema": {
-                        "name": "entry_id"
-                    }
+                    "required": true
                 },
                 {
                     "name": "name",
@@ -2325,7 +2322,7 @@
                     "username": "{$data['username']}",
                     "password": "{$data['apiKey']}"
                 },
-                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_plan_entry\/{$data['planId']}\/{$data['entry_id']}",
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_plan_entry\/{$data['planId']}\/{$data['entryId']}",
                 "method": "post"
             },
             "callbacks": [
@@ -4703,7 +4700,7 @@
                     "username": "{$data['username']}",
                     "password": "{$data['apiKey']}"
                 },
-                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_tests\/{$data['testId']}",
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_tests\/{$data['runId']}",
                 "method": "get",
                 "requestParameters": [
                     {

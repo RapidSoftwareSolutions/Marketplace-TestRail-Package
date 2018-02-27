@@ -12,7 +12,7 @@ $app->post('/api/TestRail/updatePlanEntry', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','planId'=>'planId','entryId'=>'entry_id'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','planId'=>'planId','entryId'=>'entryId'];
     $optionalParams = ['name'=>'name','description'=>'description','assignedtoId'=>'assignedto_id','includeAll'=>'include_all','caseIds'=>'case_ids'];
     $bodyParams = [
        'json' => ['suite_id','name','description','assignedto_id','include_all','case_ids']

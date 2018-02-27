@@ -22,7 +22,7 @@ $app->post('/api/TestRail/getRun', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_run/{$data['run_id']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_run/{$data['runId']}";
 
     
 
