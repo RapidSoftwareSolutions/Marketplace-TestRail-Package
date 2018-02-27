@@ -1,0 +1,4876 @@
+{
+    "package": "TestRail",
+    "tagline": "TestRail API",
+    "description": "TestRail helps you manage and track your software testing efforts and organize your QA department. Its intuitive web-based user interface makes it easy to create test cases, manage test runs and coordinate your entire testing process.",
+    "image": "https:\/\/logo.clearbit.com\/www.gurock.com\/",
+    "repo": "https:\/\/github.com\/RapidSoftwareSolutions\/Marketplace-TestRail-Package",
+    "keywords": [
+        "API",
+        "Testing",
+        "Case",
+        "Reports",
+        "QA"
+    ],
+    "accounts": {
+        "domain": "www.gurock.com",
+        "credentials": [
+            "apiKey",
+            "appName",
+            "username"
+        ]
+    },
+    "steps": [
+        "Register on the www.gurock.com\/testrail\/",
+        "After registration, create api key in account settings.",
+        "After creation api key,API can be enabled in the administration area in TestRail under Administration > Site Settings > API.",
+        "You can get appName from url.For example rapidtest  https:\/\/rapidtest.testrail.io"
+    ],
+    "blocks": [
+        {
+            "name": "getCase",
+            "description": "Use the following API method to request details about test case.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "caseId",
+                    "type": "Number",
+                    "info": "The ID of the test case.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_case\/{$data['caseId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCases",
+            "description": "Returns a list of test cases for a test suite or specific section in a test suite.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project.",
+                    "required": true
+                },
+                {
+                    "name": "suiteId",
+                    "type": "Number",
+                    "info": "The ID of the test suite (optional if the project is operating in single suite mode).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "suite_id"
+                    }
+                },
+                {
+                    "name": "sectionId",
+                    "type": "Number",
+                    "info": "The ID of the section (optional).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "section_id"
+                    }
+                },
+                {
+                    "name": "createdAfter",
+                    "type": "DatePicker",
+                    "info": "Only return test cases created after this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_after",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "createdBefore",
+                    "type": "DatePicker",
+                    "info": "Only return test cases created before this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_before",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "createdBy",
+                    "type": "List",
+                    "structure": {
+                        "name": "userId",
+                        "type": "Number",
+                        "info": "Single user id."
+                    },
+                    "info": "List of creators (user IDs) to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_by",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "List",
+                    "structure": {
+                        "name": "milestoneId",
+                        "type": "Number",
+                        "info": "Single milestone IDs to filter by."
+                    },
+                    "info": "List of milestone IDs to filter by (not available if the milestone field is disabled for the project).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "milestone_id",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "priorityId",
+                    "type": "List",
+                    "structure": {
+                        "name": "priorityId",
+                        "type": "Number",
+                        "info": "Single priority IDs to filter by."
+                    },
+                    "info": "List of priority IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "priority_id",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "typeId",
+                    "type": "List",
+                    "structure": {
+                        "name": "caseTypeId",
+                        "type": "Number",
+                        "info": "Single case type IDs to filter by."
+                    },
+                    "info": "List of case type IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "type_id",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "templateId",
+                    "type": "List",
+                    "structure": {
+                        "name": "templateId",
+                        "type": "Number",
+                        "info": "Single template IDs to filter by."
+                    },
+                    "info": "List of template IDs to filter by.(requires TestRail 5.2 or later)",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "template_id",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "updatedAfter",
+                    "type": "DatePicker",
+                    "info": "Only return test cases updated after this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "updated_after",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "updatedBefore",
+                    "type": "DatePicker",
+                    "info": "Only return test cases updated before this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "updated_before",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "updatedBy",
+                    "type": "List",
+                    "structure": {
+                        "name": "userId",
+                        "type": "Number",
+                        "info": "Single user id."
+                    },
+                    "info": "List of users who updated test cases to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "updated_by",
+                        "format": "toString:{,}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_cases\/{$data['projectId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "suite_id",
+                            "section_id",
+                            "created_after",
+                            "created_before",
+                            "created_by",
+                            "milestone_id",
+                            "priority_id",
+                            "template_id",
+                            "type_id",
+                            "updated_after",
+                            "updated_before",
+                            "updated_by"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createCase",
+            "description": "Creates a new test case.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "sectionId",
+                    "type": "Number",
+                    "info": "The ID of the section the test case should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "title",
+                    "type": "String",
+                    "info": "The title of the test case (required)",
+                    "required": true
+                },
+                {
+                    "name": "templateId",
+                    "type": "Number",
+                    "info": "The ID of the template (field layout) (requires TestRail 5.2 or later).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "template_id"
+                    }
+                },
+                {
+                    "name": "typeId",
+                    "type": "Number",
+                    "info": "The ID of the case type.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "type_id"
+                    }
+                },
+                {
+                    "name": "estimate",
+                    "type": "String",
+                    "info": "The estimate, e.g. `30s` or `1m 45s`.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "estimate"
+                    }
+                },
+                {
+                    "name": "priorityId",
+                    "type": "Number",
+                    "info": "The ID of the case priority.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "priority_id"
+                    }
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "Number",
+                    "info": "The ID of the milestone to link to the test case.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "estimate"
+                    }
+                },
+                {
+                    "name": "refs",
+                    "type": "List",
+                    "structure": {
+                        "name": "ref",
+                        "type": "String",
+                        "info": "Single references\/requirements."
+                    },
+                    "info": "List of references\/requirements.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "refs",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "customFields",
+                    "type": "Array",
+                    "structure": [
+                        {
+                            "name": "key",
+                            "type": "String",
+                            "info": "Name of the custom field.",
+                            "required": true
+                        },
+                        {
+                            "name": "value",
+                            "type": "JSON",
+                            "info": "Json value of the custom field.",
+                            "required": true
+                        }
+                    ],
+                    "info": "Custom fields are supported as well and must be submitted with their system name, prefixed with 'custom_'.See more in readme.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_case\/{$data['sectionId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "title",
+                            "template_id",
+                            "type_id",
+                            "priority_id",
+                            "estimate",
+                            "milestone_id",
+                            "refs"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateCase",
+            "description": "The ID of the test case.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "caseId",
+                    "type": "Number",
+                    "info": "The ID of the test case",
+                    "required": true
+                },
+                {
+                    "name": "title",
+                    "type": "String",
+                    "info": "The title of the test case (required)",
+                    "required": true
+                },
+                {
+                    "name": "templateId",
+                    "type": "Number",
+                    "info": "The ID of the template (field layout) (requires TestRail 5.2 or later).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "template_id"
+                    }
+                },
+                {
+                    "name": "typeId",
+                    "type": "Number",
+                    "info": "The ID of the case type.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "type_id"
+                    }
+                },
+                {
+                    "name": "estimate",
+                    "type": "String",
+                    "info": "The estimate, e.g. `30s` or `1m 45s`.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "estimate"
+                    }
+                },
+                {
+                    "name": "priorityId",
+                    "type": "Number",
+                    "info": "The ID of the case priority.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "priority_id"
+                    }
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "Number",
+                    "info": "The ID of the milestone to link to the test case.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "estimate"
+                    }
+                },
+                {
+                    "name": "refs",
+                    "type": "List",
+                    "structure": {
+                        "name": "ref",
+                        "type": "String",
+                        "info": "Single references\/requirements."
+                    },
+                    "info": "List of references\/requirements.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "refs",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "customFields",
+                    "type": "Array",
+                    "structure": [
+                        {
+                            "name": "key",
+                            "type": "String",
+                            "info": "Name of the custom field.",
+                            "required": true
+                        },
+                        {
+                            "name": "value",
+                            "type": "JSON",
+                            "info": "Json value of the custom field.",
+                            "required": true
+                        }
+                    ],
+                    "info": "Custom fields are supported as well and must be submitted with their system name, prefixed with 'custom_'.See more in readme.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_case\/{$data['caseId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "title",
+                            "template_id",
+                            "type_id",
+                            "priority_id",
+                            "estimate",
+                            "milestone_id",
+                            "refs"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteCase",
+            "description": "Deletes an existing test case.Please note: Deleting a test case cannot be undone and also permanently deletes all test results in active test runs (i.e. test runs that haven't been closed (archived) yet).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "caseId",
+                    "type": "Number",
+                    "info": "The ID of the test case.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_case\/{$data['caseId']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllCaseFields",
+            "description": "Returns a list of available test case custom fields.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_case_fields",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllCaseTypes",
+            "description": "Returns a list of available case types.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_case_types",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getProjectConfigs",
+            "description": "Returns a list of available configurations, grouped by configuration groups (requires TestRail 3.1 or later).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_configs\/{$data['projectId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createNewConfigurationGroup",
+            "description": "Creates a new configuration group (requires TestRail 5.2 or later).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project the configuration group should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the configuration group (required).",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_config_group\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createNewConfiguration",
+            "description": "Creates a new configuration (requires TestRail 5.2 or later).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "configGroupId",
+                    "type": "Number",
+                    "info": "The ID of the configuration group the configuration should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the configuration (required).",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_config\/{$data['configGroupId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateConfig",
+            "description": "Updates an existing configuration (requires TestRail 5.2 or later).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "configId",
+                    "type": "Number",
+                    "info": "The ID of the configuration.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the configuration.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_config\/{$data['configId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteConfigGroup",
+            "description": "Deletes an existing configuration group and its configurations (requires TestRail 5.2 or later).Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans\/runs, or active test plans\/runs unless they are updated.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "configGroupId",
+                    "type": "Number",
+                    "info": "The ID of the configuration group.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_config_group\/{$data['configGroupId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteConfig",
+            "description": "Deletes an existing configuration (requires TestRail 5.2 or later).Please note: Deleting a configuration cannot be undone. It does not, however, affect closed test plans\/runs, or active test plans\/runs unless they are updated.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "configId",
+                    "type": "Number",
+                    "info": "The ID of the configuration.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_config\/{$data['configGroupId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getMilestone",
+            "description": "Returns an existing milestone.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "Number",
+                    "info": "The ID of the milestone.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_milestone\/{$data['milestone_id']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getMilestones",
+            "description": "Returns the list of milestones for a project.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project.",
+                    "required": true
+                },
+                {
+                    "name": "isCompleted",
+                    "type": "Select",
+                    "options": [
+                        "1",
+                        "0"
+                    ],
+                    "info": "1 to return completed milestones only. 0 to return open (active\/upcoming) milestones only (available since TestRail 4.0).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_completed"
+                    }
+                },
+                {
+                    "name": "isStarted",
+                    "type": "Select",
+                    "options": [
+                        "1",
+                        "0"
+                    ],
+                    "info": "1 to return started milestones only. 0 to return upcoming milestones only (available since TestRail 5.3).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_started"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_milestones\/{$data['projectId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "is_completed",
+                            "is_started"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createsMilestone",
+            "description": "Creates a new milestone.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project the milestone should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the milestone (required).",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "name"
+                    }
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the milestone.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "description"
+                    }
+                },
+                {
+                    "name": "dueOn",
+                    "type": "DatePicker",
+                    "info": "The due date of the milestone.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "due_on",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "parentId",
+                    "type": "String",
+                    "info": "The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "parent_id"
+                    }
+                },
+                {
+                    "name": "startOn",
+                    "type": "String",
+                    "info": "The scheduled start date of the milestone.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "start_on",
+                        "format": "toFormat:{unixtime}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_milestone\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "description",
+                            "due_on",
+                            "parent_id",
+                            "start_on"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateMilestone",
+            "description": "Updates an existing milestone (partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "Number",
+                    "info": "The ID of the milestone.",
+                    "required": true
+                },
+                {
+                    "name": "isCompleted",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True if a milestone is considered completed and false otherwise.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_completed"
+                    }
+                },
+                {
+                    "name": "isStarted",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True if a milestone is considered started and false otherwise.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_started"
+                    }
+                },
+                {
+                    "name": "parentId",
+                    "type": "String",
+                    "info": "The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "parent_id"
+                    }
+                },
+                {
+                    "name": "startOn",
+                    "type": "String",
+                    "info": "The scheduled start date of the milestone.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "start_on",
+                        "format": "toFormat:{unixtime}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_milestone\/{$data['milestone_id']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "is_completed",
+                            "is_started",
+                            "parent_id",
+                            "start_on"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteMilestone",
+            "description": "Deletes an existing milestone.Please note: Deleting a milestone cannot be undone.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "Number",
+                    "info": "The ID of the milestone.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_milestone\/{$data['milestone_id']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getPlan",
+            "description": "Returns an existing test plan.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the test plan.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_plan\/{$data['planId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getPlans",
+            "description": "Returns an existing test plan.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project.",
+                    "required": true
+                },
+                {
+                    "name": "createdAfter",
+                    "type": "DatePicker",
+                    "info": "Only return test plans created after this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_after",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "createdBefore",
+                    "type": "DatePicker",
+                    "info": "Only return test plans created before this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_before",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "createdBy",
+                    "type": "List",
+                    "structure": {
+                        "name": "userId",
+                        "type": "Number",
+                        "info": "Single user id."
+                    },
+                    "info": "List of creators (user IDs) to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_by",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "isCompleted",
+                    "type": "Select",
+                    "options": [
+                        "1",
+                        "0"
+                    ],
+                    "info": "1 to return completed test plans only. 0 to return active test plans only.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_completed"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Limit the result to :limit test plans.",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Use :offset to skip records.",
+                    "required": false
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "List",
+                    "structure": {
+                        "name": "milestoneId",
+                        "type": "Number",
+                        "info": "Single milestone IDs to filter by."
+                    },
+                    "info": "List of milestone IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "milestone_id",
+                        "format": "toString:{,}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_plans\/{$data['projectId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "created_after",
+                            "created_before",
+                            "created_by",
+                            "is_completed",
+                            "limit",
+                            "offset",
+                            "milestone_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createPlan",
+            "description": "Creates a new test plan.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project the test plan should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test plan (required).",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test plan.",
+                    "required": false
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "String",
+                    "info": "The ID of the milestone to link to the test plan.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "milestone_id"
+                    }
+                },
+                {
+                    "name": "entries",
+                    "type": "JSON",
+                    "info": "An json array of objects describing the test runs of the plan.See more in readme.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "milestone_id"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_plan\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "description",
+                            "created_by",
+                            "milestone_id",
+                            "entries"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createPlanEntry",
+            "description": "Adds one or more new test runs to a test plan.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the project the test plan should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test run (required).",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test run(s) (requires TestRail 5.2 or later).",
+                    "required": false
+                },
+                {
+                    "name": "assignedtoId",
+                    "type": "Number",
+                    "info": "The ID of the user the test run(s) should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
+                    }
+                },
+                {
+                    "name": "includeAll",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True for including all test cases of the test suite and false for a custom case selection (default: true).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "include_all"
+                    }
+                },
+                {
+                    "name": "caseIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "caseId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of case IDs for the custom case selection.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "case_ids"
+                    }
+                },
+                {
+                    "name": "configIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "configId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of configuration IDs used for the test runs of the test plan entry (requires TestRail 3.1 or later).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "config_ids"
+                    }
+                },
+                {
+                    "name": "runs",
+                    "type": "JSON",
+                    "info": "An array of configuration IDs used for the test runs of the test plan entry (requires TestRail 3.1 or later).See more in readme.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_plan_entry\/{$data['planId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "suite_id",
+                            "name",
+                            "description",
+                            "assignedto_id",
+                            "include_all",
+                            "case_ids",
+                            "config_ids",
+                            "runs"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updatePlan",
+            "description": "Updates an existing test plan (partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the project the test plan should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test run (required).",
+                    "required": false
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test run(s) (requires TestRail 5.2 or later).",
+                    "required": false
+                },
+                {
+                    "name": "assignedtoId",
+                    "type": "Number",
+                    "info": "The ID of the user the test run(s) should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
+                    }
+                },
+                {
+                    "name": "includeAll",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True for including all test cases of the test suite and false for a custom case selection (default: true).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "include_all"
+                    }
+                },
+                {
+                    "name": "caseIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "caseId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of case IDs for the custom case selection.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "case_ids"
+                    }
+                },
+                {
+                    "name": "configIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "configId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of configuration IDs used for the test runs of the test plan entry (requires TestRail 3.1 or later).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "config_ids"
+                    }
+                },
+                {
+                    "name": "runs",
+                    "type": "JSON",
+                    "info": "An array of configuration IDs used for the test runs of the test plan entry (requires TestRail 3.1 or later).See more in readme.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_plan\/{$data['planId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "suite_id",
+                            "name",
+                            "description",
+                            "assignedto_id",
+                            "include_all",
+                            "case_ids",
+                            "config_ids",
+                            "runs"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updatePlanEntry",
+            "description": "Updates one or more existing test runs in a plan (partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the project the test plan should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "entryId",
+                    "type": "Number",
+                    "info": "The ID of the test plan entry (note: not the test run ID)",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "entry_id"
+                    }
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test run (required).",
+                    "required": false
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test run(s) (requires TestRail 5.2 or later).",
+                    "required": false
+                },
+                {
+                    "name": "assignedtoId",
+                    "type": "Number",
+                    "info": "The ID of the user the test run(s) should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
+                    }
+                },
+                {
+                    "name": "includeAll",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True for including all test cases of the test suite and false for a custom case selection (default: true)",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "include_all"
+                    }
+                },
+                {
+                    "name": "caseIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "caseId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of case IDs for the custom case selection.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "case_ids"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_plan_entry\/{$data['planId']}\/{$data['entryId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "suite_id",
+                            "name",
+                            "description",
+                            "assignedto_id",
+                            "include_all",
+                            "case_ids"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "closePlan",
+            "description": "Closes an existing test plan and archives its test runs & results.Please note: Closing a test plan cannot be undone.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the plan.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/close_plan\/{$data['planId']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deletePlan",
+            "description": "Deletes an existing test plan.Please note: Deleting a test plan cannot be undone and also permanently deletes all test runs & results of the test plan.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the plan.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_plan\/{$data['planId']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deletePlanEntry",
+            "description": "Deletes one or more existing test runs from a plan.Please note: Deleting a test run from a plan cannot be undone and also permanently deletes all related test results.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "planId",
+                    "type": "Number",
+                    "info": "The ID of the plan.",
+                    "required": true
+                },
+                {
+                    "name": "entryId",
+                    "type": "Number",
+                    "info": "The ID of the test plan entry (note: not the test run ID).",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_plan_entry\/{$data['planId']}\/{$data['entry_id']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllPriorities",
+            "description": "Returns a list of available priorities.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_priorities",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getProject",
+            "description": "Returns an existing project.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_project\/{$data['projectId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getProjects",
+            "description": "Returns the list of available projects.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "isCompleted",
+                    "type": "Select",
+                    "options": [
+                        "1",
+                        "0"
+                    ],
+                    "info": "1 to return completed projects only. 0 to return active projects only.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_completed"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_projects",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "is_completed"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createProject",
+            "description": "Creates a new project (admin status required).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the project (required).",
+                    "required": true
+                },
+                {
+                    "name": "announcement",
+                    "type": "String",
+                    "info": "The description of the project.",
+                    "required": false
+                },
+                {
+                    "name": "showAnnouncement",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True if the announcement should be displayed on the project's overview page and false otherwise.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "show_announcement"
+                    }
+                },
+                {
+                    "name": "suiteMode",
+                    "type": "Number",
+                    "info": "The suite mode of the project (1 for single suite mode, 2 for single suite + baselines, 3 for multiple suites) (added with TestRail 4.0).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "suite_mode"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_project",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "name",
+                            "announcement",
+                            "show_announcement",
+                            "suite_mode"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateProject",
+            "description": "Updates an existing project (admin status required; partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The name of the project (required).",
+                    "required": true
+                },
+                {
+                    "name": "isCompleted",
+                    "type": "Select",
+                    "options": [
+                        "1",
+                        "0"
+                    ],
+                    "info": "Specifies whether a project is considered completed or not.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "is_completed"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_project\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "is_completed"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteProject",
+            "description": "Deletes an existing project (admin status required).Please note: Deleting a project cannot be undone and also permanently deletes all test suites & cases, test runs & results and everything else that is part of the project.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_project\/{$data['projectId']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getResults",
+            "description": "Returns a list of test results for a test.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "testId",
+                    "type": "String",
+                    "info": "The ID of the test.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_results\/{$data['testId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getResultsForCase",
+            "description": "Returns a list of test results for a test run and case combination.See more in readme.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                },
+                {
+                    "name": "caseId",
+                    "type": "String",
+                    "info": "The ID of the test case",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Limit the result to :limit test plans.",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Use :offset to skip records.",
+                    "required": false
+                },
+                {
+                    "name": "statusId",
+                    "type": "List",
+                    "structure": {
+                        "name": "statusId",
+                        "type": "String",
+                        "info": "Single status id."
+                    },
+                    "info": "List of status IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "status_id",
+                        "format": "toString:{,}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_results_for_case\/{$data['runId']}\/{$data['caseId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "status_id",
+                            "offset",
+                            "limit"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getResultsForRun",
+            "description": "Returns a list of test results for a test run.Requires TestRail 4.0 or later.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                },
+                {
+                    "name": "createdAfter",
+                    "type": "DatePicker",
+                    "info": "Only return test results created after this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_after",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Limit the result to :limit test plans.",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Use :offset to skip records.",
+                    "required": false
+                },
+                {
+                    "name": "statusId",
+                    "type": "List",
+                    "structure": {
+                        "name": "statusId",
+                        "type": "String",
+                        "info": "Single status id."
+                    },
+                    "info": "List of status IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "status_id",
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "createdBefore",
+                    "type": "DatePicker",
+                    "info": "Only return test results created before this date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_before",
+                        "format": "toFormat:{unixtime}"
+                    }
+                },
+                {
+                    "name": "createdBy",
+                    "type": "List",
+                    "structure": {
+                        "name": "userId",
+                        "type": "Number",
+                        "info": "Single user id."
+                    },
+                    "info": "List of creators (user IDs) to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "created_by",
+                        "format": "toString:{,}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_results_for_run\/{$data['runId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "status_id",
+                            "offset",
+                            "limit",
+                            "created_before",
+                            "created_by",
+                            "created_after"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addResults",
+            "description": "Adds one or more new test results, comments or assigns one or more tests. Ideal for test automation to bulk-add multiple test results in one step.See more in readme.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run the results should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "resultJsonStructure",
+                    "type": "List",
+                    "structure": {
+                        "name": "singleResult",
+                        "type": "JSON",
+                        "info": "Json structure for single result."
+                    },
+                    "info": "List of the json results objects.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "result_json_structure"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_results\/{$data['runId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "status_id",
+                            "comment",
+                            "version",
+                            "elapsed",
+                            "defects",
+                            "assignedto_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addResultsForCases",
+            "description": "Adds one or more new test results, comments or assigns one or more tests (using the case IDs). Ideal for test automation to bulk-add multiple test results in one step.See more in readme.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run the results should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "resultJsonStructure",
+                    "type": "List",
+                    "structure": {
+                        "name": "singleResult",
+                        "type": "JSON",
+                        "info": "Json structure for single result."
+                    },
+                    "info": "List of the json results objects.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "result_json_structure"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_results_for_cases\/{$data['runId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "status_id",
+                            "comment",
+                            "version",
+                            "elapsed",
+                            "defects",
+                            "assignedto_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addResult",
+            "description": "Adds a new test result, comment or assigns a test. It's recommended to use add_results instead if you plan to add results for multiple tests.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "testId",
+                    "type": "String",
+                    "info": "The ID of the test.",
+                    "required": true
+                },
+                {
+                    "name": "statusId",
+                    "type": "Number",
+                    "info": "You can get a full list of system and custom statuses via getStatuses.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "status_id"
+                    }
+                },
+                {
+                    "name": "comment",
+                    "type": "String",
+                    "info": "The comment \/ description for the test result.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "comment"
+                    }
+                },
+                {
+                    "name": "version",
+                    "type": "String",
+                    "info": "The version or build you tested against.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "version"
+                    }
+                },
+                {
+                    "name": "elapsed",
+                    "type": "String",
+                    "info": "The time it took to execute the test, e.g. `30s` or `1m 45s`",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "elapsed"
+                    }
+                },
+                {
+                    "name": "defects",
+                    "type": "List",
+                    "structure": {
+                        "name": "defect",
+                        "type": "String",
+                        "info": "Single defect."
+                    },
+                    "info": "List of defects to link to the test result.",
+                    "required": false,
+                    "vendorSchema": {
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "assignedToId",
+                    "type": "String",
+                    "info": "The ID of a user the test should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
+                    }
+                },
+                {
+                    "name": "customFields",
+                    "type": "Array",
+                    "structure": [
+                        {
+                            "name": "key",
+                            "type": "String",
+                            "info": "Name of the custom field.",
+                            "required": true
+                        },
+                        {
+                            "name": "value",
+                            "type": "JSON",
+                            "info": "Json value of the custom field.",
+                            "required": true
+                        }
+                    ],
+                    "info": "Custom fields are supported as well and must be submitted with their system name, prefixed with 'custom_'.See more in readme.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_result\/{$data['testId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "status_id",
+                            "comment",
+                            "version",
+                            "elapsed",
+                            "defects",
+                            "assignedto_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addResultForCase",
+            "description": "Adds a new test result, comment or assigns a test (for a test run and case combination). It's recommended to use add_results_for_cases instead if you plan to add results for multiple test cases.See more in readme.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                },
+                {
+                    "name": "caseId",
+                    "type": "String",
+                    "info": "The ID of the case run.",
+                    "required": true
+                },
+                {
+                    "name": "statusId",
+                    "type": "Number",
+                    "info": "You can get a full list of system and custom statuses via getStatuses.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "status_id"
+                    }
+                },
+                {
+                    "name": "comment",
+                    "type": "String",
+                    "info": "The comment \/ description for the test result.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "comment"
+                    }
+                },
+                {
+                    "name": "version",
+                    "type": "String",
+                    "info": "The version or build you tested against.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "version"
+                    }
+                },
+                {
+                    "name": "elapsed",
+                    "type": "String",
+                    "info": "The time it took to execute the test, e.g. `30s` or `1m 45s`",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "elapsed"
+                    }
+                },
+                {
+                    "name": "defects",
+                    "type": "List",
+                    "structure": {
+                        "name": "defect",
+                        "type": "String",
+                        "info": "Single defect."
+                    },
+                    "info": "List of defects to link to the test result.",
+                    "required": false,
+                    "vendorSchema": {
+                        "format": "toString:{,}"
+                    }
+                },
+                {
+                    "name": "assignedToId",
+                    "type": "String",
+                    "info": "The ID of a user the test should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
+                    }
+                },
+                {
+                    "name": "customFields",
+                    "type": "List",
+                    "structure": [
+                        {
+                            "name": "key",
+                            "type": "String",
+                            "info": "Name of the custom field.",
+                            "required": true
+                        },
+                        {
+                            "name": "value",
+                            "type": "JSON",
+                            "info": "Json value of the custom field.",
+                            "required": true
+                        }
+                    ],
+                    "info": "Custom fields are supported as well and must be submitted with their system name, prefixed with 'custom_'.See more in readme.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_result_for_case\/{$data['run_id']}\/{$data['case_id']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "status_id",
+                            "comment",
+                            "version",
+                            "elapsed",
+                            "defects",
+                            "assignedto_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getResultFields",
+            "description": "Returns a list of available test result custom fields.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_result_fields",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRun",
+            "description": "Returns an existing test run. Please see getTests for the list of included tests in this run.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_run\/{$data['run_id']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createTestRun",
+            "description": "Creates a new test run.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "Number",
+                    "info": "The ID of the project.",
+                    "required": true
+                },
+                {
+                    "name": "suiteId",
+                    "type": "Number",
+                    "info": "The ID of the test suite for the test run (optional if the project is operating in single suite mode, required otherwise).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "suite_id"
+                    }
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test run.",
+                    "required": false
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test run.",
+                    "required": false
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "String",
+                    "info": "The ID of the milestone to link to the test run.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "milestone_id"
+                    }
+                },
+                {
+                    "name": "assignedToId",
+                    "type": "Number",
+                    "info": "The ID of the user the test run should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
+                    }
+                },
+                {
+                    "name": "includeAll",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True for including all test cases of the test suite and false for a custom case selection (default: true).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "include_all"
+                    }
+                },
+                {
+                    "name": "caseIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "caseId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of case IDs for the custom case selection.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "case_ids"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_run\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "suite_id",
+                            "name",
+                            "description",
+                            "milestone_id",
+                            "assignedto_id",
+                            "include_all",
+                            "case_ids"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateTestRun",
+            "description": "Updates an existing test run (partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "Number",
+                    "info": "The ID of the test run.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test run.",
+                    "required": false
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test run.",
+                    "required": false
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "String",
+                    "info": "The ID of the milestone to link to the test run.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "milestone_id"
+                    }
+                },
+                {
+                    "name": "includeAll",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "True for including all test cases of the test suite and false for a custom case selection (default: true).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "include_all"
+                    }
+                },
+                {
+                    "name": "caseIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "caseId",
+                        "type": "Number",
+                        "info": "Single case ID."
+                    },
+                    "info": "An array of case IDs for the custom case selection.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "case_ids"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_run\/{$data['run_id']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "suite_id",
+                            "name",
+                            "description",
+                            "milestone_id",
+                            "assignedto_id",
+                            "include_all",
+                            "case_ids"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "closeRun",
+            "description": "Closes an existing test run and archives its tests & results.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/close_run\/{$data['run_id']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRun",
+            "description": "Deletes an existing test run.Please note: Deleting a test run cannot be undone and also permanently deletes all tests & results of the test run.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_run\/{$data['run_id']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getSection",
+            "description": "Returns an existing section.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "sectionId",
+                    "type": "String",
+                    "info": "The ID of the section.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_section\/{$data['sectionId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getSections",
+            "description": "Returns a list of sections for a project and test suite.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project.",
+                    "required": true
+                },
+                {
+                    "name": "suiteId",
+                    "type": "String",
+                    "info": "The ID of the test suite (optional if the project is operating in single suite mode).",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_section\/{$data['sectionId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "suite_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createSection",
+            "description": "Creates a new section.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project.",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the section (added with TestRail 4.0).",
+                    "required": false
+                },
+                {
+                    "name": "suiteId",
+                    "type": "Number",
+                    "info": "The ID of the test suite (ignored if the project is operating in single suite mode, required otherwise).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "suite_id"
+                    }
+                },
+                {
+                    "name": "parentId",
+                    "type": "Number",
+                    "info": "The ID of the parent section (to build section hierarchies).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "parent_id"
+                    }
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the section (required).",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_section\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "suite_id",
+                            "name",
+                            "description",
+                            "suite_id",
+                            "parent_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateSection",
+            "description": "Updates an existing section (partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "sectionId",
+                    "type": "String",
+                    "info": "The ID of the section.",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the section (added with TestRail 4.0).",
+                    "required": false
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the section (required).",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_section\/{$data['sectionId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "description"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteSection",
+            "description": "Deletes an existing section.Please note: Deleting a section cannot be undone and also deletes all related test cases as well as active tests & results, i.e. tests & results that weren't closed (archived) yet.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "sectionId",
+                    "type": "String",
+                    "info": "The ID of the section.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_section\/{$data['sectionId']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getStatuses",
+            "description": "Returns a list of available test statuses.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_statuses",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTestSuite",
+            "description": "Returns an existing test suite.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "suiteId",
+                    "type": "String",
+                    "info": "The ID of the test suite.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_suite\/{$data['suiteId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTestSuitesForProject",
+            "description": "Returns a list of test suites for a project.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_suites\/{$data['projectId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createTestSuite",
+            "description": "Creates a new test suite.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project the test suite should be added to.",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test suite.",
+                    "required": false
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test suite.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/add_suite\/{$data['projectId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "description"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateTestSuite",
+            "description": "Updates an existing test suite (partial updates are supported, i.e. you can submit and update specific fields only).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "suiteId",
+                    "type": "String",
+                    "info": "The ID of the test suite.",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "String",
+                    "info": "The description of the test suite.",
+                    "required": false
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The name of the test suite.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/update_suite\/{$data['suiteId']}",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "name",
+                            "description"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteTestSuit",
+            "description": "Deletes an existing test suite.Please note: Deleting a test suite cannot be undone and also deletes all active test runs & results, i.e. test runs & results that weren't closed (archived) yet.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "suiteId",
+                    "type": "String",
+                    "info": "The ID of the test suite.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/delete_suite\/{$data['suiteId']}",
+                "method": "post"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTemplates",
+            "description": "Returns a list of available templates (requires TestRail 5.2 or later).",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "projectId",
+                    "type": "String",
+                    "info": "The ID of the project.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_templates\/{$data['projectId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTest",
+            "description": "Returns an existing test.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "testId",
+                    "type": "String",
+                    "info": "The ID of the test.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_test\/{$data['testId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getTests",
+            "description": "Returns a list of tests for a test run.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "runId",
+                    "type": "String",
+                    "info": "The ID of the test run.",
+                    "required": true
+                },
+                {
+                    "name": "statusIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "statusId",
+                        "type": "String",
+                        "info": "Single status id."
+                    },
+                    "info": "List of status IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "status_id",
+                        "format": "toString:{,}"
+                    }
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_tests\/{$data['testId']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "status_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getUser",
+            "description": "Returns an existing user.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "userId",
+                    "type": "String",
+                    "info": "The ID of the user.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_user\/{$data['userId']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getUserByEmail",
+            "description": "Returns an existing user.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "info": "The email address to get the user for.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_user_by_email&email={$data['email']}",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getUsers",
+            "description": "Returns a list of users.",
+            "args": [
+                {
+                    "name": "appName",
+                    "type": "credentials",
+                    "info": "Your app name. Example - rapidtest.testrail.io",
+                    "required": true
+                },
+                {
+                    "name": "username",
+                    "type": "credentials",
+                    "info": "Your username.",
+                    "required": true
+                },
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API Key.Also you can use account password.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+    "headers": {
+          "Content-Type": "application/json"
+        },
+                "auth": {
+                    "username": "{$data['username']}",
+                    "password": "{$data['apiKey']}"
+                },
+                "url": "https:\/\/{$data['appName']}.testrail.io\/index.php?\/api\/v2\/get_users",
+                "method": "get"
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
