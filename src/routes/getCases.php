@@ -41,6 +41,7 @@ $app->post('/api/TestRail/getCases', function ($request, $response) {
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
 
+
     try {
         $resp = $client->get($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();

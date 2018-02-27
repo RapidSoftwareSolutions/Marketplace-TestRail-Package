@@ -4,7 +4,7 @@ $app->post('/api/TestRail/createPlan', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId','name','milestoneId','entries']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId','name']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,8 +12,8 @@ $app->post('/api/TestRail/createPlan', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId','name'=>'name','milestoneId'=>'milestone_id','entries'=>'milestone_id'];
-    $optionalParams = ['description'=>'description'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId','name'=>'name'];
+    $optionalParams = ['description'=>'description','milestoneId'=>'milestone_id','entries'=>'milestone_id'];
     $bodyParams = [
        'json' => ['name','description','created_by','milestone_id','entries']
     ];

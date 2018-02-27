@@ -4,7 +4,7 @@ $app->post('/api/TestRail/updateMilestone', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','milestoneId','parentId','startOn']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','milestoneId']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,16 +12,39 @@ $app->post('/api/TestRail/updateMilestone', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','milestoneId'=>'milestoneId','parentId'=>'parent_id','startOn'=>'start_on'];
-    $optionalParams = ['isCompleted'=>'is_completed','isStarted'=>'is_started'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','milestoneId'=>'milestoneId'];
+    $optionalParams = ['isCompleted'=>'is_completed','isStarted'=>'is_started','parentId'=>'parent_id','startOn'=>'start_on'];
     $bodyParams = [
        'json' => ['is_completed','is_started','parent_id','start_on']
     ];
 
+
+
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
-    $data['start_on'] = \Models\Params::toFormat($data['start_on'], 'unixtime'); 
+    if(!empty($data['is_completed']) && $data['is_completed'] === 'true')
+    {
+        $data['is_completed'] = 1;
+    }
+
+    if(!empty($data['is_completed']) && $data['is_completed'] === 'false')
+    {
+        $data['is_completed'] = 0;
+    }
+
+    if(!empty($data['is_started']) && $data['is_started'] === 'true')
+    {
+        $data['is_started'] = 1;
+    }
+
+    if(!empty($data['is_started']) && $data['is_started'] === 'false')
+    {
+        $data['is_started'] = 0;
+    }
+    if(!empty($data['start_on']))
+    {
+        $data['start_on'] = \Models\Params::toFormat($data['start_on'], 'unixtime');
+    }
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/update_milestone/{$data['milestoneId']}";

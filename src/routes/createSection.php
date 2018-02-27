@@ -4,7 +4,7 @@ $app->post('/api/TestRail/createSection', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId','name','suiteId']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);

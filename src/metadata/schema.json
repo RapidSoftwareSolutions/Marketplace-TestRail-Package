@@ -1742,7 +1742,7 @@
                     "name": "milestoneId",
                     "type": "String",
                     "info": "The ID of the milestone to link to the test plan.",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "milestone_id"
                     }
@@ -1751,7 +1751,7 @@
                     "name": "entries",
                     "type": "JSON",
                     "info": "An json array of objects describing the test runs of the plan.See more in readme.",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "milestone_id"
                     }
@@ -4026,7 +4026,7 @@
                     "name": "suiteId",
                     "type": "Number",
                     "info": "The ID of the test suite (ignored if the project is operating in single suite mode, required otherwise).",
-                    "required": false,
+                    "required": true,
                     "vendorSchema": {
                         "name": "suite_id"
                     }
@@ -4044,7 +4044,7 @@
                     "name": "name",
                     "type": "String",
                     "info": "The name of the section (required).",
-                    "required": false
+                    "required": true
                 }
             ],
             "vendorRequest": {
