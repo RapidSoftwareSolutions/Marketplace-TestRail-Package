@@ -379,6 +379,7 @@ Adds one or more new test runs to a test plan.
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
+| suitId      | Number     | The ID of the test suite for the test run(s).
 | name        | String     | The name of the test run (required).
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
 | assignedtoId| Number     | The ID of the user the test run(s) should be assigned to.

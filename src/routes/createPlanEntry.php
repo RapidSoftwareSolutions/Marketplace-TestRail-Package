@@ -4,7 +4,7 @@ $app->post('/api/TestRail/createPlanEntry', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','planId','name']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','planId','name','suiteId']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,7 +12,7 @@ $app->post('/api/TestRail/createPlanEntry', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','planId'=>'planId','name'=>'name'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','planId'=>'planId','suiteId'=>'suite_id','name'=>'name'];
     $optionalParams = ['description'=>'description','assignedtoId'=>'assignedto_id','includeAll'=>'include_all','caseIds'=>'case_ids','configIds'=>'config_ids','runs'=>'runs'];
     $bodyParams = [
        'json' => ['suite_id','name','description','assignedto_id','include_all','case_ids','config_ids','runs']

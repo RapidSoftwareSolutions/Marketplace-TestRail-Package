@@ -44,7 +44,7 @@ $app->post('/api/TestRail/addResult', function ($request, $response) {
     }
 
     try {
-        $resp = $client->get($query_str, $requestParams);
+        $resp = $client->post($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();
 
         if(in_array($resp->getStatusCode(), ['200', '201', '202', '203', '204'])) {
