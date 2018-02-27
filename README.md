@@ -6,10 +6,10 @@ TestRail helps you manage and track your software testing efforts and organize y
 * Credentials: apiKey, appName, username
 
 ## How to get credentials: 
-0. Register on the www.gurock.com\/testrail
+0. Register on the [www.gurock.com](http://www.gurock.com/testrail/)
 1. After registration, create api key in account settings
 2. After creation api key,API can be enabled in the administration area in TestRail under Administration > Site Settings > API
-3. You can get appName from url.For example rapidtest from url - https:\/\/rapidtest.testrail.io
+3. You can get appName from url.For example rapidtest from url - `https:\/\/rapidtest.testrail.io`
 
 ## Custom datatypes: 
  |Datatype|Description|Example
@@ -25,7 +25,7 @@ Use the following API method to request details about test case.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | caseId  | Number     | The ID of the test case.
@@ -35,7 +35,7 @@ Returns a list of test cases for a test suite or specific section in a test suit
 
 | Field        | Type       | Description
 |--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest.testrail.io
+| appName      | credentials| Your app name. Example - rapidtest
 | username     | credentials| Your username.
 | apiKey       | credentials| Your API Key.Also you can use account password.
 | projectId    | Number     | The ID of the project.
@@ -57,7 +57,7 @@ Creates a new test case.
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | sectionId   | Number     | The ID of the section the test case should be added to.
@@ -93,11 +93,11 @@ Creates a new test case.
 
 
 ## TestRail.updateCase
-The ID of the test case.
+Updates an existing test case (partial updates are supported, i.e. you can submit and update specific fields only).
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | caseId      | Number     | The ID of the test case
@@ -134,7 +134,7 @@ Deletes an existing test case.Please note: Deleting a test case cannot be undone
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | caseId  | Number     | The ID of the test case.
@@ -144,7 +144,7 @@ Returns a list of available test case custom fields.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
@@ -153,7 +153,7 @@ Returns a list of available case types.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
@@ -162,7 +162,7 @@ Returns a list of available configurations, grouped by configuration groups (req
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| Number     | The ID of the project.
@@ -172,7 +172,7 @@ Creates a new configuration group (requires TestRail 5.2 or later).
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| Number     | The ID of the project the configuration group should be added to.
@@ -183,7 +183,7 @@ Creates a new configuration (requires TestRail 5.2 or later).
 
 | Field        | Type       | Description
 |--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest.testrail.io
+| appName      | credentials| Your app name. Example - rapidtest
 | username     | credentials| Your username.
 | apiKey       | credentials| Your API Key.Also you can use account password.
 | configGroupId| Number     | The ID of the configuration group the configuration should be added to.
@@ -194,7 +194,7 @@ Updates an existing configuration (requires TestRail 5.2 or later).
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | configId| Number     | The ID of the configuration.
@@ -205,7 +205,7 @@ Deletes an existing configuration group and its configurations (requires TestRai
 
 | Field        | Type       | Description
 |--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest.testrail.io
+| appName      | credentials| Your app name. Example - rapidtest
 | username     | credentials| Your username.
 | apiKey       | credentials| Your API Key.Also you can use account password.
 | configGroupId| Number     | The ID of the configuration group.
@@ -215,7 +215,7 @@ Deletes an existing configuration (requires TestRail 5.2 or later).Please note: 
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | configId| Number     | The ID of the configuration.
@@ -225,7 +225,7 @@ Returns an existing milestone.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | milestoneId| Number     | The ID of the milestone.
@@ -235,7 +235,7 @@ Returns the list of milestones for a project.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | projectId  | Number     | The ID of the project.
@@ -247,7 +247,7 @@ Creates a new milestone.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | projectId  | Number     | The ID of the project the milestone should be added to.
@@ -262,7 +262,7 @@ Updates an existing milestone (partial updates are supported, i.e. you can submi
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | milestoneId| Number     | The ID of the milestone.
@@ -276,7 +276,7 @@ Deletes an existing milestone.Please note: Deleting a milestone cannot be undone
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | milestoneId| Number     | The ID of the milestone.
@@ -286,7 +286,7 @@ Returns an existing test plan.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | planId  | Number     | The ID of the test plan.
@@ -296,7 +296,7 @@ Returns an existing test plan.
 
 | Field        | Type       | Description
 |--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest.testrail.io
+| appName      | credentials| Your app name. Example - rapidtest
 | username     | credentials| Your username.
 | apiKey       | credentials| Your API Key.Also you can use account password.
 | projectId    | Number     | The ID of the project.
@@ -313,7 +313,7 @@ Creates a new test plan.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | projectId  | Number     | The ID of the project the test plan should be added to.
@@ -375,7 +375,7 @@ Adds one or more new test runs to a test plan.
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
@@ -440,7 +440,7 @@ Updates an existing test plan (partial updates are supported, i.e. you can submi
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
@@ -506,7 +506,7 @@ Updates one or more existing test runs in a plan (partial updates are supported,
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
@@ -522,7 +522,7 @@ Closes an existing test plan and archives its test runs & results.Please note: C
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | planId  | Number     | The ID of the plan.
@@ -532,7 +532,7 @@ Deletes an existing test plan.Please note: Deleting a test plan cannot be undone
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | planId  | Number     | The ID of the plan.
@@ -542,7 +542,7 @@ Deletes one or more existing test runs from a plan.Please note: Deleting a test 
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | planId  | Number     | The ID of the plan.
@@ -553,7 +553,7 @@ Returns a list of available priorities.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
@@ -562,7 +562,7 @@ Returns an existing project.
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| String     | The ID of the project.
@@ -572,7 +572,7 @@ Returns the list of available projects.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | isCompleted| Select     | 1 to return completed projects only. 0 to return active projects only.
@@ -582,7 +582,7 @@ Creates a new project (admin status required).
 
 | Field           | Type       | Description
 |-----------------|------------|----------
-| appName         | credentials| Your app name. Example - rapidtest.testrail.io
+| appName         | credentials| Your app name. Example - rapidtest
 | username        | credentials| Your username.
 | apiKey          | credentials| Your API Key.Also you can use account password.
 | name            | String     | The name of the project (required).
@@ -595,7 +595,7 @@ Updates an existing project (admin status required; partial updates are supporte
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | projectId  | Number     | The name of the project (required).
@@ -606,7 +606,7 @@ Deletes an existing project (admin status required).Please note: Deleting a proj
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| String     | The ID of the project.
@@ -616,7 +616,7 @@ Returns a list of test results for a test.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | testId  | String     | The ID of the test.
@@ -628,7 +628,7 @@ The difference to get_results is that this method expects a test run + test case
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | runId   | String     | The ID of the test run.
@@ -642,7 +642,7 @@ Returns a list of test results for a test run.Requires TestRail 4.0 or later.
 
 | Field        | Type       | Description
 |--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest.testrail.io
+| appName      | credentials| Your app name. Example - rapidtest
 | username     | credentials| Your username.
 | apiKey       | credentials| Your API Key.Also you can use account password.
 | runId        | String     | The ID of the test run.
@@ -658,7 +658,7 @@ Adds one or more new test results, comments or assigns one or more tests. Ideal 
 
 | Field              | Type       | Description
 |--------------------|------------|----------
-| appName            | credentials| Your app name. Example - rapidtest.testrail.io
+| appName            | credentials| Your app name. Example - rapidtest
 | username           | credentials| Your username.
 | apiKey             | credentials| Your API Key.Also you can use account password.
 | runId              | String     | The ID of the test run the results should be added to.
@@ -679,7 +679,7 @@ Adds one or more new test results, comments or assigns one or more tests (using 
 
 | Field              | Type       | Description
 |--------------------|------------|----------
-| appName            | credentials| Your app name. Example - rapidtest.testrail.io
+| appName            | credentials| Your app name. Example - rapidtest
 | username           | credentials| Your username.
 | apiKey             | credentials| Your API Key.Also you can use account password.
 | runId              | String     | The ID of the test run the results should be added to.
@@ -701,7 +701,7 @@ Adds a new test result, comment or assigns a test. It's recommended to use add_r
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | testId      | String     | The ID of the test.
@@ -718,7 +718,7 @@ Adds a new test result, comment or assigns a test (for a test run and case combi
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | runId       | String     | The ID of the test run.
@@ -736,7 +736,7 @@ Returns a list of available test result custom fields.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
@@ -745,7 +745,7 @@ Returns an existing test run. Please see getTests for the list of included tests
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | runId   | String     | The ID of the test run.
@@ -755,7 +755,7 @@ Creates a new test run.
 
 | Field       | Type       | Description
 |-------------|------------|----------
-| appName     | credentials| Your app name. Example - rapidtest.testrail.io
+| appName     | credentials| Your app name. Example - rapidtest
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | projectId   | Number     | The ID of the project.
@@ -772,7 +772,7 @@ Updates an existing test run (partial updates are supported, i.e. you can submit
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | runId      | Number     | The ID of the test run.
@@ -787,7 +787,7 @@ Closes an existing test run and archives its tests & results.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | runId   | String     | The ID of the test run.
@@ -797,7 +797,7 @@ Deletes an existing test run.Please note: Deleting a test run cannot be undone a
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | runId   | String     | The ID of the test run.
@@ -807,7 +807,7 @@ Returns an existing section.
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | sectionId| String     | The ID of the section.
@@ -817,7 +817,7 @@ Returns a list of sections for a project and test suite.
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| String     | The ID of the project.
@@ -828,7 +828,7 @@ Creates a new section.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | projectId  | String     | The ID of the project.
@@ -842,7 +842,7 @@ Updates an existing section (partial updates are supported, i.e. you can submit 
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | sectionId  | String     | The ID of the section.
@@ -854,7 +854,7 @@ Deletes an existing section.Please note: Deleting a section cannot be undone and
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | sectionId| String     | The ID of the section.
@@ -864,7 +864,7 @@ Returns a list of available test statuses.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
@@ -873,7 +873,7 @@ Returns an existing test suite.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | suiteId | String     | The ID of the test suite.
@@ -883,7 +883,7 @@ Returns a list of test suites for a project.
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| String     | The ID of the project.
@@ -893,7 +893,7 @@ Creates a new test suite.
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | projectId  | String     | The ID of the project the test suite should be added to.
@@ -905,7 +905,7 @@ Updates an existing test suite (partial updates are supported, i.e. you can subm
 
 | Field      | Type       | Description
 |------------|------------|----------
-| appName    | credentials| Your app name. Example - rapidtest.testrail.io
+| appName    | credentials| Your app name. Example - rapidtest
 | username   | credentials| Your username.
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | suiteId    | String     | The ID of the test suite.
@@ -917,7 +917,7 @@ Deletes an existing test suite.Please note: Deleting a test suite cannot be undo
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | suiteId | String     | The ID of the test suite.
@@ -927,7 +927,7 @@ Returns a list of available templates (requires TestRail 5.2 or later).
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | projectId| String     | The ID of the project.
@@ -937,7 +937,7 @@ Returns an existing test.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | testId  | String     | The ID of the test.
@@ -947,7 +947,7 @@ Returns a list of tests for a test run.
 
 | Field    | Type       | Description
 |----------|------------|----------
-| appName  | credentials| Your app name. Example - rapidtest.testrail.io
+| appName  | credentials| Your app name. Example - rapidtest
 | username | credentials| Your username.
 | apiKey   | credentials| Your API Key.Also you can use account password.
 | runId    | String     | The ID of the test run.
@@ -958,7 +958,7 @@ Returns an existing user.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | userId  | String     | The ID of the user.
@@ -968,7 +968,7 @@ Returns an existing user.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | email   | String     | The email address to get the user for.
@@ -978,7 +978,7 @@ Returns a list of users.
 
 | Field   | Type       | Description
 |---------|------------|----------
-| appName | credentials| Your app name. Example - rapidtest.testrail.io
+| appName | credentials| Your app name. Example - rapidtest
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 

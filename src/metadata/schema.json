@@ -448,7 +448,7 @@
         },
         {
             "name": "updateCase",
-            "description": "The ID of the test case.",
+            "description": "Updates an existing test case (partial updates are supported, i.e. you can submit and update specific fields only).",
             "args": [
                 {
                     "name": "appName",
