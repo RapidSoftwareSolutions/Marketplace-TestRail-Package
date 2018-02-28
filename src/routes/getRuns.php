@@ -1,10 +1,10 @@
 <?php
 
-$app->post('/api/TestRail/createPlan', function ($request, $response) {
+$app->post('/api/TestRail/getRuns', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId','name']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,27 +12,39 @@ $app->post('/api/TestRail/createPlan', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId','name'=>'name'];
-    $optionalParams = ['description'=>'description','milestoneId'=>'milestone_id','entries'=>'entries'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId'];
+    $optionalParams = ['createdAfter'=>'created_after','createdBefore'=>'created_before','createdBy'=>'created_by','isCompleted'=>'is_completed','limit'=>'limit','offset'=>'offset','milestoneId'=>'milestone_id','suiteId'=>'suite_id'];
     $bodyParams = [
-       'json' => ['name','description','created_by','milestone_id','entries']
+       'query' => ['created_after','created_before','created_by','is_completed','offset','limit','milestone_id','suite_id']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
     
+    if(isset($data['created_after'])) { $data['created_after'] = \Models\Params::toFormat($data['created_after'], 'unixtime'); }
+    if(isset($data['created_before'])) { $data['created_before'] = \Models\Params::toFormat($data['created_before'], 'unixtime'); }
+    if(isset($data['created_by'])) { $data['created_by'] = \Models\Params::toString($data['created_by'], ','); }
+    if(isset($data['milestone_id'])) { $data['milestone_id'] = \Models\Params::toString($data['milestone_id'], ','); }
+    if(isset($data['suite_id'])) { $data['suite_id'] = \Models\Params::toString($data['suite_id'], ','); }
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_plan/{$data['projectId']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_runs/{$data['projectId']}";
 
-    
 
-    $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
+    foreach($bodyParams['query'] as $key => $value)
+    {
+        if(!empty($data[$value]))
+        {
+            $query_str .= "&{$value}={$data[$value]}";
+        }
+    }
+
+   // $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
 
     try {
-        $resp = $client->post($query_str, $requestParams);
+        $resp = $client->get($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();
 
         if(in_array($resp->getStatusCode(), ['200', '201', '202', '203', '204'])) {

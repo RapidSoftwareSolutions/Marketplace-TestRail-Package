@@ -24,7 +24,7 @@ $app->post('/api/TestRail/addResultForCase', function ($request, $response) {
     if(isset($data['defects'])) { $data['defects'] = \Models\Params::toString($data['defects'], ','); }
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_result_for_case/{$data['run_id']}/{$data['case_id']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_result_for_case/{$data['runId']}/{$data['caseId']}";
 
     
 

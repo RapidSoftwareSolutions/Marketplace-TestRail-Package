@@ -292,7 +292,7 @@ Returns an existing test plan.
 | planId  | Number     | The ID of the test plan.
 
 ## TestRail.getPlans
-Returns an existing test plan.
+Returns a list of test plans for a project.
 
 | Field        | Type       | Description
 |--------------|------------|----------
@@ -447,11 +447,6 @@ Updates an existing test plan (partial updates are supported, i.e. you can submi
 | planId      | Number     | The ID of the project the test plan should be added to.
 | name        | String     | The name of the test run (required).
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
-| assignedtoId| Number     | The ID of the user the test run(s) should be assigned to.
-| includeAll  | Select     | True for including all test cases of the test suite and false for a custom case selection (default: true).
-| caseIds     | List       | An array of case IDs for the custom case selection.
-| configIds   | List       | An array of configuration IDs used for the test runs of the test plan entry (requires TestRail 3.1 or later).
-| runs        | JSON       | An array of configuration IDs used for the test runs of the test plan entry (requires TestRail 3.1 or later).
 
 ##### entries example
 
@@ -511,7 +506,7 @@ Updates one or more existing test runs in a plan (partial updates are supported,
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
-| entryId     | Number     | The ID of the test plan entry (note: not the test run ID)
+| entryId     | String     | The ID of the test plan entry (note: not the test run ID)
 | name        | String     | The name of the test run (required).
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
 | assignedtoId| Number     | The ID of the user the test run(s) should be assigned to.
@@ -547,7 +542,7 @@ Deletes one or more existing test runs from a plan.Please note: Deleting a test 
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | planId  | Number     | The ID of the plan.
-| entryId | Number     | The ID of the test plan entry (note: not the test run ID).
+| entryId | String     | The ID of the test plan entry (note: not the test run ID).
 
 ## TestRail.getAllPriorities
 Returns a list of available priorities.
@@ -621,6 +616,9 @@ Returns a list of test results for a test.
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | testId  | String     | The ID of the test.
+| limit   | Number     | Limit the result to .
+| offset  | Number     | Use :offset to skip records.
+| statusId| List       | List of status IDs to filter by.
 
 ## TestRail.getResultsForCase
 Returns a list of test results for a test run and case combination.
@@ -675,6 +673,8 @@ Adds one or more new test results, comments or assigns one or more tests. Ideal 
 		}
 ```
 
+See more [here](http://docs.gurock.com/testrail-api2/reference-results).
+
 ## TestRail.addResultsForCases
 Adds one or more new test results, comments or assigns one or more tests (using the case IDs). Ideal for test automation to bulk-add multiple test results in one step.This method expects an array of test results (via the 'results' field, please see below). Each test result must specify the test case ID and can pass in the same fields as add_result, namely all test related system and custom fields. The difference to add_results is that this method expects test case IDs instead of test IDs. Please see addResultForCase for details. Please note that all referenced tests must belong to the same test run.
 
@@ -696,6 +696,8 @@ Adds one or more new test results, comments or assigns one or more tests (using 
 			"defects": "TR-7"
 		}
 ```
+
+See more [here](http://docs.gurock.com/testrail-api2/reference-results).
 
 ## TestRail.addResult
 Adds a new test result, comment or assigns a test. It's recommended to use add_results instead if you plan to add results for multiple tests.
@@ -965,7 +967,7 @@ Returns an existing user.
 | userId  | String     | The ID of the user.
 
 ## TestRail.getUserByEmail
-Returns an existing user.
+Returns an existing user by his/her email address. 
 
 | Field   | Type       | Description
 |---------|------------|----------
@@ -983,3 +985,28 @@ Returns a list of users.
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
+## TestRail.updateConfigGroup
+Updates an existing configuration group (requires TestRail 5.2 or later).
+
+| Field        | Type       | Description
+|--------------|------------|----------
+| appName      | credentials| Your app name. Example - rapidtest
+| username     | credentials| Your username.
+| apiKey       | credentials| Your API Key.Also you can use account password.
+| configGroupId    | Number     | The ID of the configuration group.
+| name      | String     | The name of the configuration group (required).
+
+## TestRail.getRuns
+Returns a list of test runs for a project. Only returns those test runs that are not part of a test plan (please see get_plans/get_plan for this).
+
+| Field        | Type       | Description
+|--------------|------------|----------
+| appName      | credentials| Your app name. Example - rapidtest
+| username     | credentials| Your username.
+| apiKey       | credentials| Your API Key.Also you can use account password.
+| projectId    | Number     | The ID of the project.
+| createdAfter | DatePicker | Only return test runs created after this date.
+| createdBefore| DatePicker | Only return test runs created before this date.
+| createdBy    | List       | List of creators (user IDs) to filter by.
+| milestoneId  | List       | List of milestone IDs to filter by (not available if the milestone field is disabled for the project).
+| isCompleted    | Boolean       | 1 to return completed test runs only. 0 to return active test runs only.

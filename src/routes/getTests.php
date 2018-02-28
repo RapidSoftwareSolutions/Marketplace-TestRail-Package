@@ -15,7 +15,7 @@ $app->post('/api/TestRail/getTests', function ($request, $response) {
     $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','runId'=>'runId'];
     $optionalParams = ['statusIds'=>'status_id'];
     $bodyParams = [
-       'json' => ['status_id']
+       'query' => ['status_id']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
@@ -26,9 +26,15 @@ $app->post('/api/TestRail/getTests', function ($request, $response) {
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_tests/{$data['runId']}";
 
-    
+    foreach($bodyParams['query'] as $key => $value)
+    {
+        if(!empty($data[$value]))
+        {
+            $query_str .= "&{$value}={$data[$value]}";
+        }
+    }
 
-    $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
+    //$requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
 

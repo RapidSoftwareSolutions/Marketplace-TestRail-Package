@@ -13,20 +13,28 @@ $app->post('/api/TestRail/getResults', function ($request, $response) {
     }
 
     $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','testId'=>'testId'];
-    $optionalParams = [];
+    $optionalParams = ['limit'=>'limit','offset'=>'offset','statusId'=>'status_id'];
     $bodyParams = [
+        'query' => ['status_id','offset','limit']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
+    if(isset($data['status_id'])) { $data['status_id'] = \Models\Params::toString($data['status_id'], ','); }
+
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_results/{$data['testId']}";
 
-    
+    foreach($bodyParams['query'] as $key => $value)
+    {
+        if(!empty($data[$value]))
+        {
+            $query_str .= "&{$value}={$data[$value]}";
+        }
+    }
 
-    $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
+    //$requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
 

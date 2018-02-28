@@ -33,14 +33,19 @@ $app->post('/api/TestRail/getCases', function ($request, $response) {
     if(isset($data['updated_by'])) { $data['updated_by'] = \Models\Params::toString($data['updated_by'], ','); }
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_cases/{$data['projectId']}";
 
-    
+    foreach($bodyParams['query'] as $key => $value)
+    {
+        if(!empty($data[$value]))
+        {
+            $query_str .= "&{$value}={$data[$value]}";
+        }
+    }
 
-    $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
+    //$requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
-
 
 
     try {

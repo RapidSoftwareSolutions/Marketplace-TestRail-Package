@@ -13,9 +13,9 @@ $app->post('/api/TestRail/updateProject', function ($request, $response) {
     }
 
     $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId'];
-    $optionalParams = ['isCompleted'=>'is_completed'];
+    $optionalParams = ['isCompleted'=>'is_completed','announcement'=>'announcement','showAnnouncement'=>'show_announcement','suiteMode'=>'suite_mode','name' => 'name'];
     $bodyParams = [
-       'json' => ['is_completed']
+       'json' => ['is_completed','name','announcement','show_announcement','suite_mode']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
@@ -25,7 +25,15 @@ $app->post('/api/TestRail/updateProject', function ($request, $response) {
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/update_project/{$data['projectId']}";
 
-    
+    if(!empty($data['show_announcement']) && $data['show_announcement'] === 'true')
+    {
+        $data['show_announcement'] = true;
+    }
+
+    if(!empty($data['show_announcement']) && $data['show_announcement'] === 'false')
+    {
+        $data['show_announcement'] = false;
+    }
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];

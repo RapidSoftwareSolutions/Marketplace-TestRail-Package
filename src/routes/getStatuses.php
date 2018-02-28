@@ -31,7 +31,7 @@ $app->post('/api/TestRail/getStatuses', function ($request, $response) {
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
 
     try {
-        $resp = $client->post($query_str, $requestParams);
+        $resp = $client->get($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();
 
         if(in_array($resp->getStatusCode(), ['200', '201', '202', '203', '204'])) {

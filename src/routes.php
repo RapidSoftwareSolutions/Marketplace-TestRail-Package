@@ -63,7 +63,10 @@ $routes = [
     'getTests',
     'getUser',
     'getUserByEmail',
-    'getUsers'
+    'getUsers',
+    'getRuns',
+    'updateConfigGroup'
+
 ];
 foreach($routes as $file) {
     require __DIR__ . '/../src/routes/'.$file.'.php';

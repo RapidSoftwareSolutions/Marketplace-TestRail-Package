@@ -1,10 +1,10 @@
 <?php
 
-$app->post('/api/TestRail/createPlan', function ($request, $response) {
+$app->post('/api/TestRail/updateConfigGroup', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId','name']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','configGroupId','name']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,10 +12,10 @@ $app->post('/api/TestRail/createPlan', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId','name'=>'name'];
-    $optionalParams = ['description'=>'description','milestoneId'=>'milestone_id','entries'=>'entries'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','configGroupId'=>'configGroupId','name'=>'name'];
+    $optionalParams = [];
     $bodyParams = [
-       'json' => ['name','description','created_by','milestone_id','entries']
+       'json' => ['name']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
@@ -23,7 +23,7 @@ $app->post('/api/TestRail/createPlan', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_plan/{$data['projectId']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/update_config_group/{$data['configGroupId']}";
 
     
 

@@ -20,7 +20,15 @@ $app->post('/api/TestRail/createProject', function ($request, $response) {
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
+    if(!empty($data['show_announcement']) && $data['show_announcement'] === 'true')
+    {
+        $data['show_announcement'] = true;
+    }
+
+    if(!empty($data['show_announcement']) && $data['show_announcement'] === 'false')
+    {
+        $data['show_announcement'] = false;
+    }
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_project";

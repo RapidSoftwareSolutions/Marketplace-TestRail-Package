@@ -4,7 +4,7 @@ $app->post('/api/TestRail/updateTestRun', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','runId','milestoneId']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','runId']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,8 +12,8 @@ $app->post('/api/TestRail/updateTestRun', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','runId'=>'runId','milestoneId'=>'milestone_id'];
-    $optionalParams = ['name'=>'name','description'=>'description','includeAll'=>'include_all','caseIds'=>'case_ids'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','runId'=>'runId'];
+    $optionalParams = ['name'=>'name','description'=>'description','includeAll'=>'include_all','milestoneId'=>'milestone_id','caseIds'=>'case_ids'];
     $bodyParams = [
        'json' => ['suite_id','name','description','milestone_id','assignedto_id','include_all','case_ids']
     ];

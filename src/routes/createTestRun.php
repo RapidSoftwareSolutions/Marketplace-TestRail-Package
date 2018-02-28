@@ -4,7 +4,7 @@ $app->post('/api/TestRail/createTestRun', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId','milestoneId']);
+    $validateRes = $checkRequest->validate($request, ['appName','username','apiKey','projectId']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,15 +12,23 @@ $app->post('/api/TestRail/createTestRun', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId','milestoneId'=>'milestone_id'];
-    $optionalParams = ['suiteId'=>'suite_id','name'=>'name','description'=>'description','assignedToId'=>'assignedto_id','includeAll'=>'include_all','caseIds'=>'case_ids'];
+    $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId'];
+    $optionalParams = ['suiteId'=>'suite_id','milestoneId'=>'milestone_id','name'=>'name','description'=>'description','assignedToId'=>'assignedto_id','includeAll'=>'include_all','caseIds'=>'case_ids'];
     $bodyParams = [
        'json' => ['suite_id','name','description','milestone_id','assignedto_id','include_all','case_ids']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
+    if(!empty($data['include_all']) && $data['include_all'] === 'true')
+    {
+        $data['include_all'] = true;
+    }
+
+    if(!empty($data['include_all']) && $data['include_all'] === 'false')
+    {
+        $data['include_all'] = false;
+    }
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_run/{$data['projectId']}";

@@ -23,11 +23,17 @@ $app->post('/api/TestRail/getSections', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_section/{$data['sectionId']}";
+    $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_section/{$data['projectId']}";
 
-    
+    foreach($bodyParams['query'] as $key => $value)
+    {
+        if(!empty($data[$value]))
+        {
+            $query_str .= "&{$value}={$data[$value]}";
+        }
+    }
 
-    $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
+    //$requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
 
