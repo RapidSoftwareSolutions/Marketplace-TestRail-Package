@@ -15,7 +15,7 @@ $app->post('/api/TestRail/updatePlan', function ($request, $response) {
     $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','planId'=>'planId'];
     $optionalParams = ['name'=>'name','description'=>'description','assignedtoId'=>'assignedto_id','includeAll'=>'include_all','caseIds'=>'case_ids','configIds'=>'config_ids','runs'=>'runs'];
     $bodyParams = [
-       'json' => ['suite_id','name','description','assignedto_id','include_all','case_ids','config_ids','runs']
+       'json' => ['suite_id','name','description','assignedto_id','include_all','case_ids','config_ids','runs','milestone_id','entries','milestoneId'=>'milestone_id','entries'=>'entries']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);

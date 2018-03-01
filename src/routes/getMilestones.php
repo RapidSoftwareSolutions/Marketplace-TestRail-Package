@@ -20,14 +20,23 @@ $app->post('/api/TestRail/getMilestones', function ($request, $response) {
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
+    if(!empty($data['is_started']) && $data['is_started'] === 'true')
+    {
+        $data['is_started'] = 1;
+    }
+
+    if(!empty($data['is_started']) && $data['is_started'] === 'false')
+    {
+        $data['is_started'] = "0";
+    }
+
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_milestones/{$data['projectId']}";
 
     foreach($bodyParams['query'] as $key => $value)
     {
-        if(!empty($data[$value]))
+        if(isset($data[$value]))
         {
             $query_str .= "&{$value}={$data[$value]}";
         }

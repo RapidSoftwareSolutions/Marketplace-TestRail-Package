@@ -200,6 +200,17 @@ Updates an existing configuration (requires TestRail 5.2 or later).
 | configId| Number     | The ID of the configuration.
 | name    | String     | The name of the configuration.
 
+## TestRail.updateConfigGroup
+Updates an existing configuration group (requires TestRail 5.2 or later).
+
+| Field        | Type       | Description
+|--------------|------------|----------
+| appName      | credentials| Your app name. Example - rapidtest
+| username     | credentials| Your username.
+| apiKey       | credentials| Your API Key.Also you can use account password.
+| configGroupId    | Number     | The ID of the configuration group.
+| name      | String     | The name of the configuration group (required).
+
 ## TestRail.deleteConfigGroup
 Deletes an existing configuration group and its configurations (requires TestRail 5.2 or later).Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.
 
@@ -447,6 +458,9 @@ Updates an existing test plan (partial updates are supported, i.e. you can submi
 | planId      | Number     | The ID of the project the test plan should be added to.
 | name        | String     | The name of the test run (required).
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
+| milestoneId | String     | The ID of the milestone to link to the test plan.
+| entries    | JSON       | An json array of objects describing the test runs of the plan.
+
 
 ##### entries example
 
@@ -753,6 +767,24 @@ Returns an existing test run. Please see getTests for the list of included tests
 | apiKey  | credentials| Your API Key.Also you can use account password.
 | runId   | String     | The ID of the test run.
 
+## TestRail.getRuns
+Returns a list of test runs for a project. Only returns those test runs that are not part of a test plan (please see get_plans/get_plan for this).
+
+| Field        | Type       | Description
+|--------------|------------|----------
+| appName      | credentials| Your app name. Example - rapidtest
+| username     | credentials| Your username.
+| apiKey       | credentials| Your API Key.Also you can use account password.
+| projectId    | Number     | The ID of the project.
+| createdAfter | DatePicker | Only return test runs created after this date.
+| createdBefore| DatePicker | Only return test runs created before this date.
+| createdBy    | List       | List of creators (user IDs) to filter by.
+| milestoneId  | List       | List of milestone IDs to filter by (not available if the milestone field is disabled for the project).
+| isCompleted    | Boolean       | 1 to return completed test runs only. 0 to return active test runs only.
+| limit        | Number     | Limit the result to.
+| offset       | Number     | Use :offset to skip records.
+| suiteId | String     | The ID of the test suite.
+
 ## TestRail.createTestRun
 Creates a new test run.
 
@@ -784,6 +816,8 @@ Updates an existing test run (partial updates are supported, i.e. you can submit
 | milestoneId| String     | The ID of the milestone to link to the test run.
 | includeAll | Select     | True for including all test cases of the test suite and false for a custom case selection (default: true).
 | caseIds    | List       | An array of case IDs for the custom case selection.
+| assignedToId| Number     | The ID of the user the test run should be assigned to.
+| suiteId     | Number     | The ID of the test suite for the test run (optional if the project is operating in single suite mode, required otherwise).
 
 ## TestRail.closeRun
 Closes an existing test run and archives its tests & results.
@@ -985,28 +1019,6 @@ Returns a list of users.
 | username| credentials| Your username.
 | apiKey  | credentials| Your API Key.Also you can use account password.
 
-## TestRail.updateConfigGroup
-Updates an existing configuration group (requires TestRail 5.2 or later).
 
-| Field        | Type       | Description
-|--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest
-| username     | credentials| Your username.
-| apiKey       | credentials| Your API Key.Also you can use account password.
-| configGroupId    | Number     | The ID of the configuration group.
-| name      | String     | The name of the configuration group (required).
 
-## TestRail.getRuns
-Returns a list of test runs for a project. Only returns those test runs that are not part of a test plan (please see get_plans/get_plan for this).
 
-| Field        | Type       | Description
-|--------------|------------|----------
-| appName      | credentials| Your app name. Example - rapidtest
-| username     | credentials| Your username.
-| apiKey       | credentials| Your API Key.Also you can use account password.
-| projectId    | Number     | The ID of the project.
-| createdAfter | DatePicker | Only return test runs created after this date.
-| createdBefore| DatePicker | Only return test runs created before this date.
-| createdBy    | List       | List of creators (user IDs) to filter by.
-| milestoneId  | List       | List of milestone IDs to filter by (not available if the milestone field is disabled for the project).
-| isCompleted    | Boolean       | 1 to return completed test runs only. 0 to return active test runs only.

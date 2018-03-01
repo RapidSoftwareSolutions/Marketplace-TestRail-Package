@@ -20,7 +20,15 @@ $app->post('/api/TestRail/updatePlanEntry', function ($request, $response) {
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
+    if(!empty($data['include_all']) && $data['include_all'] === 'true')
+    {
+        $data['include_all'] = true;
+    }
+
+    if(!empty($data['include_all']) && $data['include_all'] === 'false')
+    {
+        $data['include_all'] = false;
+    }
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/update_plan_entry/{$data['planId']}/{$data['entryId']}";

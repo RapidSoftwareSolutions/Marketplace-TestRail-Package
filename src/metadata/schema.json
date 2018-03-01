@@ -886,7 +886,7 @@
                     "name": "name",
                     "type": "String",
                     "info": "The name of the configuration group (required).",
-                    "required": true
+                    "required": false
                 }
             ],
             "vendorRequest": {
@@ -1263,8 +1263,8 @@
                     "name": "isStarted",
                     "type": "Select",
                     "options": [
-                        "1",
-                        "0"
+                        "true",
+                        "false"
                     ],
                     "info": "1 to return started milestones only. 0 to return upcoming milestones only (available since TestRail 5.3).",
                     "required": false,
@@ -2038,6 +2038,24 @@
                     "type": "String",
                     "info": "The description of the test run(s) (requires TestRail 5.2 or later).",
                     "required": false
+                },
+                {
+                    "name": "milestoneId",
+                    "type": "String",
+                    "info": "The ID of the milestone to link to the test plan.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "milestone_id"
+                    }
+                },
+                {
+                    "name": "entries",
+                    "type": "JSON",
+                    "info": "An json array of objects describing the test runs of the plan.See more in readme.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "entries"
+                    }
                 }
             ],
             "vendorRequest": {
@@ -2638,8 +2656,8 @@
                     "name": "isCompleted",
                     "type": "Select",
                     "options": [
-                        "1",
-                        "0"
+                        "true",
+                        "false"
                     ],
                     "info": "Specifies whether a project is considered completed or not.",
                     "required": false,
@@ -2802,6 +2820,21 @@
                     "type": "Number",
                     "info": "Use :offset to skip records.",
                     "required": false
+                },
+                {
+                    "name": "statusId",
+                    "type": "List",
+                    "structure": {
+                        "name": "statusId",
+                        "type": "String",
+                        "info": "Single status id."
+                    },
+                    "info": "List of status IDs to filter by.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "status_id",
+                        "format": "toString:{,}"
+                    }
                 }
             ],
             "vendorRequest": {
@@ -3440,7 +3473,7 @@
                 },
                 {
                     "name": "customFields",
-                    "type": "List",
+                    "type": "Array",
                     "structure": [
                         {
                             "name": "key",
@@ -3622,7 +3655,7 @@
                     "name": "suiteId",
                     "type": "Number",
                     "info": "The ID of the test suite for the test run (optional if the project is operating in single suite mode, required otherwise).",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "suite_id"
                     }
@@ -3795,6 +3828,24 @@
                     "required": false,
                     "vendorSchema": {
                         "name": "case_ids"
+                    }
+                },
+                {
+                    "name": "suiteId",
+                    "type": "Number",
+                    "info": "The ID of the test suite for the test run (optional if the project is operating in single suite mode, required otherwise).",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "suite_id"
+                    }
+                },
+                {
+                    "name": "assignedtoId",
+                    "type": "Number",
+                    "info": "The ID of the user the test run should be assigned to.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "assignedto_id"
                     }
                 }
             ],
@@ -4090,7 +4141,7 @@
                     "name": "suiteId",
                     "type": "Number",
                     "info": "The ID of the test suite (ignored if the project is operating in single suite mode, required otherwise).",
-                    "required": true,
+                    "required": false,
                     "vendorSchema": {
                         "name": "suite_id"
                     }
@@ -4957,7 +5008,7 @@
                 },
                 {
                     "name": "projectId",
-                    "type": "credentials",
+                    "type": "String",
                     "info": "The ID of the project.",
                     "required": true
                 },

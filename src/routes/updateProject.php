@@ -35,6 +35,18 @@ $app->post('/api/TestRail/updateProject', function ($request, $response) {
         $data['show_announcement'] = false;
     }
 
+    if(!empty($data['is_completed']) && $data['is_completed'] === 'true')
+    {
+        $data['is_completed'] = true;
+    }
+
+    if(!empty($data['is_completed']) && $data['is_completed'] === 'false')
+    {
+        $data['is_completed'] = false;
+    }
+
+
+
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];

@@ -20,9 +20,16 @@ $app->post('/api/TestRail/createsMilestone', function ($request, $response) {
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
-    $data['due_on'] = \Models\Params::toFormat($data['due_on'], 'unixtime'); 
-    $data['start_on'] = \Models\Params::toFormat($data['start_on'], 'unixtime'); 
+    if(!empty($data['due_on']))
+    {
+        $data['due_on'] = \Models\Params::toFormat($data['due_on'], 'unixtime');
+
+    }
+
+    if(!empty($data['start_on']))
+    {
+        $data['start_on'] = \Models\Params::toFormat($data['start_on'], 'unixtime');
+    }
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_milestone/{$data['projectId']}";
@@ -32,7 +39,7 @@ $app->post('/api/TestRail/createsMilestone', function ($request, $response) {
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
-
+    exit();
     try {
         $resp = $client->post($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();

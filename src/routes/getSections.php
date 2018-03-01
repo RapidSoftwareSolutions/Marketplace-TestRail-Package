@@ -13,7 +13,7 @@ $app->post('/api/TestRail/getSections', function ($request, $response) {
     }
 
     $requiredParams = ['appName'=>'appName','username'=>'username','apiKey'=>'apiKey','projectId'=>'projectId'];
-    $optionalParams = ['suiteId'=>'suiteId'];
+    $optionalParams = ['suiteId'=>'suite_id'];
     $bodyParams = [
        'query' => ['suite_id']
     ];

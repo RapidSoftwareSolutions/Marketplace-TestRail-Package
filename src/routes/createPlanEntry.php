@@ -25,7 +25,15 @@ $app->post('/api/TestRail/createPlanEntry', function ($request, $response) {
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/add_plan_entry/{$data['planId']}";
 
-    
+    if(!empty($data['include_all']) && $data['include_all'] === 'true')
+    {
+        $data['include_all'] = true;
+    }
+
+    if(!empty($data['include_all']) && $data['include_all'] === 'false')
+    {
+        $data['include_all'] = false;
+    }
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
