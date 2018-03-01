@@ -209,7 +209,7 @@ Updates an existing configuration group (requires TestRail 5.2 or later).
 | username     | credentials| Your username.
 | apiKey       | credentials| Your API Key.Also you can use account password.
 | configGroupId    | Number     | The ID of the configuration group.
-| name      | String     | The name of the configuration group (required).
+| name      | String     | The name of the configuration group.
 
 ## TestRail.deleteConfigGroup
 Deletes an existing configuration group and its configurations (requires TestRail 5.2 or later).Please note: Deleting a configuration group cannot be undone and also permanently deletes all configurations in this group. It does not, however, affect closed test plans/runs, or active test plans/runs unless they are updated.
@@ -456,11 +456,10 @@ Updates an existing test plan (partial updates are supported, i.e. you can submi
 | username    | credentials| Your username.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
-| name        | String     | The name of the test run (required).
+| name        | String     | The name of the test run.
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
 | milestoneId | String     | The ID of the milestone to link to the test plan.
 | entries    | JSON       | An json array of objects describing the test runs of the plan.
-
 
 ##### entries example
 
@@ -746,7 +745,7 @@ Adds a new test result, comment or assigns a test (for a test run and case combi
 | elapsed     | String     | The time it took to execute the test, e.g. `30s` or `1m 45s`
 | defects     | List       | List of defects to link to the test result.
 | assignedToId| String     | The ID of a user the test should be assigned to.
-| customFields| List       | Custom fields are supported as well and must be submitted with their system name, prefixed with 'custom_'.See more [here](http://docs.gurock.com/testrail-api2/reference-results#add_result_for_case).
+| customFields| Array       | Custom fields are supported as well and must be submitted with their system name, prefixed with 'custom_'.See more [here](http://docs.gurock.com/testrail-api2/reference-results#add_result_for_case).
 
 ## TestRail.getResultFields
 Returns a list of available test result custom fields.
@@ -816,8 +815,6 @@ Updates an existing test run (partial updates are supported, i.e. you can submit
 | milestoneId| String     | The ID of the milestone to link to the test run.
 | includeAll | Select     | True for including all test cases of the test suite and false for a custom case selection (default: true).
 | caseIds    | List       | An array of case IDs for the custom case selection.
-| assignedToId| Number     | The ID of the user the test run should be assigned to.
-| suiteId     | Number     | The ID of the test suite for the test run (optional if the project is operating in single suite mode, required otherwise).
 
 ## TestRail.closeRun
 Closes an existing test run and archives its tests & results.

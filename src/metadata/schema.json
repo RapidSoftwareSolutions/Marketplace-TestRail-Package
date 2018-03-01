@@ -885,7 +885,7 @@
                 {
                     "name": "name",
                     "type": "String",
-                    "info": "The name of the configuration group (required).",
+                    "info": "The name of the configuration group.",
                     "required": false
                 }
             ],
@@ -1250,8 +1250,8 @@
                     "name": "isCompleted",
                     "type": "Select",
                     "options": [
-                        "1",
-                        "0"
+                        "true",
+                        "false"
                     ],
                     "info": "1 to return completed milestones only. 0 to return open (active\/upcoming) milestones only (available since TestRail 4.0).",
                     "required": false,
@@ -1897,7 +1897,7 @@
                     "name": "name",
                     "type": "String",
                     "info": "The name of the test run (required).",
-                    "required": true
+                    "required": false
                 },
                 {
                     "name": "description",
@@ -2030,7 +2030,7 @@
                 {
                     "name": "name",
                     "type": "String",
-                    "info": "The name of the test run (required).",
+                    "info": "The name of the test run.",
                     "required": false
                 },
                 {
@@ -3828,24 +3828,6 @@
                     "required": false,
                     "vendorSchema": {
                         "name": "case_ids"
-                    }
-                },
-                {
-                    "name": "suiteId",
-                    "type": "Number",
-                    "info": "The ID of the test suite for the test run (optional if the project is operating in single suite mode, required otherwise).",
-                    "required": false,
-                    "vendorSchema": {
-                        "name": "suite_id"
-                    }
-                },
-                {
-                    "name": "assignedtoId",
-                    "type": "Number",
-                    "info": "The ID of the user the test run should be assigned to.",
-                    "required": false,
-                    "vendorSchema": {
-                        "name": "assignedto_id"
                     }
                 }
             ],

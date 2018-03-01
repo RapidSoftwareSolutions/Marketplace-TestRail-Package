@@ -30,6 +30,16 @@ $app->post('/api/TestRail/getMilestones', function ($request, $response) {
         $data['is_started'] = "0";
     }
 
+    if(!empty($data['is_completed']) && $data['is_completed'] === 'true')
+    {
+        $data['is_completed'] = 1;
+    }
+
+    if(!empty($data['is_completed']) && $data['is_completed'] === 'false')
+    {
+        $data['is_completed'] = "0";
+    }
+
 
     $client = $this->httpClient;
     $query_str = "https://{$data['appName']}.testrail.io/index.php?/api/v2/get_milestones/{$data['projectId']}";
@@ -41,6 +51,7 @@ $app->post('/api/TestRail/getMilestones', function ($request, $response) {
             $query_str .= "&{$value}={$data[$value]}";
         }
     }
+
 
     //$requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];

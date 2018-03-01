@@ -39,7 +39,7 @@ $app->post('/api/TestRail/createsMilestone', function ($request, $response) {
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Content-Type"=>"application/json"];
     $requestParams["auth"] = [$data['username'],$data['apiKey']];
-    exit();
+
     try {
         $resp = $client->post($query_str, $requestParams);
         $responseBody = $resp->getBody()->getContents();
