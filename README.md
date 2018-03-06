@@ -265,7 +265,7 @@ Creates a new milestone.
 | name       | String     | The name of the milestone (required).
 | description| String     | The description of the milestone.
 | dueOn      | DatePicker | The due date of the milestone.
-| parentId   | String     | The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).
+| parentId   | Number     | The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).
 | startOn    | String     | The scheduled start date of the milestone.
 
 ## TestRail.updateMilestone
@@ -391,7 +391,7 @@ Adds one or more new test runs to a test plan.
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
 | suitId      | Number     | The ID of the test suite for the test run(s).
-| name        | String     | The name of the test run (required).
+| name        | String     | The name of the test run.
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
 | assignedtoId| Number     | The ID of the user the test run(s) should be assigned to.
 | includeAll  | Select     | True for including all test cases of the test suite and false for a custom case selection (default: true).
@@ -520,7 +520,7 @@ Updates one or more existing test runs in a plan (partial updates are supported,
 | apiKey      | credentials| Your API Key.Also you can use account password.
 | planId      | Number     | The ID of the project the test plan should be added to.
 | entryId     | String     | The ID of the test plan entry (note: not the test run ID)
-| name        | String     | The name of the test run (required).
+| name        | String     | The name of the test run.
 | description | String     | The description of the test run(s) (requires TestRail 5.2 or later).
 | assignedtoId| Number     | The ID of the user the test run(s) should be assigned to.
 | includeAll  | Select     | True for including all test cases of the test suite and false for a custom case selection (default: true)
@@ -881,7 +881,7 @@ Updates an existing section (partial updates are supported, i.e. you can submit 
 | apiKey     | credentials| Your API Key.Also you can use account password.
 | sectionId  | String     | The ID of the section.
 | description| String     | The description of the section (added with TestRail 4.0).
-| name       | String     | The name of the section (required).
+| name       | String     | The name of the section.
 
 ## TestRail.deleteSection
 Deletes an existing section.Please note: Deleting a section cannot be undone and also deletes all related test cases as well as active tests & results, i.e. tests & results that weren't closed (archived) yet.

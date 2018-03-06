@@ -1362,7 +1362,7 @@
                 },
                 {
                     "name": "parentId",
-                    "type": "String",
+                    "type": "Number",
                     "info": "The ID of the parent milestone, if any (for sub-milestones) (available since TestRail 5.3).",
                     "required": false,
                     "vendorSchema": {
@@ -1896,7 +1896,7 @@
                 {
                     "name": "name",
                     "type": "String",
-                    "info": "The name of the test run (required).",
+                    "info": "The name of the test run.",
                     "required": false
                 },
                 {
@@ -2132,7 +2132,7 @@
                 {
                     "name": "name",
                     "type": "String",
-                    "info": "The name of the test run (required).",
+                    "info": "The name of the test run.",
                     "required": false
                 },
                 {
@@ -4215,7 +4215,7 @@
                 {
                     "name": "name",
                     "type": "String",
-                    "info": "The name of the section (required).",
+                    "info": "The name of the section.",
                     "required": false
                 }
             ],
