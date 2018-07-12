@@ -35,18 +35,21 @@ Class checkRequest {
         } else {
             if(!empty($reqFields)) {
                 foreach($reqFields as $item) {
-
-                    if(is_array($post_data['args'][$item]) )
-                    {
-                        if(count($post_data['args'][$item]) == 0)
+                    if (isset($post_data['args'][$item])) {
+                        if(is_array($post_data['args'][$item]) )
                         {
-                            $error[] = $item;
-                        } else {
-                            continue;
+                            if(count($post_data['args'][$item]) == 0)
+                            {
+                                $error[] = $item;
+                            } else {
+                                continue;
+                            }
                         }
-                    }
-
-                    if(strlen($post_data['args'][$item]) == 0 && count($post_data['args'][$item]) == 0) {
+    
+                        if(strlen($post_data['args'][$item]) == 0 && count($post_data['args'][$item]) == 0) {
+                            $error[] = $item;
+                        }
+                    } else {
                         $error[] = $item;
                     }
                 }
